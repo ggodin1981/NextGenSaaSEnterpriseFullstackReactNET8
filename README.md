@@ -91,13 +91,73 @@ Run dev:
 npm run dev
 ```
 
+Open:
 
+- http://localhost:5173
 
+Login with:
 
+- admin / admin123 → Admin view with Tenants menu
 
+- user / user123 → Standard operator view (no Tenants menu)
 
+The dashboard will:
 
+- Fetch /api/accounts
 
+- Fetch /api/accounts/{id}/transactions
+
+- Fetch /api/accounts/{id}/ai-insight
+
+- Allow you to post new transactions and see:
+
+   - Updated balance
+
+   - Updated AI insight narrative
+
+#3️⃣ Docker (high level)
+```
+version: '3.9'
+services:
+  api:
+    image: nextgen-saas-api
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5001:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Server=db;Database=NextGenSaaS;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True
+    depends_on:
+      - db
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong!Passw0rd
+    ports:
+      - "1433:1433"
+```
+#Frontend Dockerfile (example):
+```
+FROM node:20-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+FROM nginx:1.27-alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
+```
+
+In production .env:
+```
+VITE_API_BASE=https://api.nextgensaas.your-domain.com
+```
 
 
 

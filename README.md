@@ -23,7 +23,7 @@ It’s designed to showcase how I build real-world systems end-to-end:
 
 ## 🏗 Architecture Overview
 
-```mermaid
+```text
 flowchart LR
     subgraph Client["Client Tier"]
         UI["React + TypeScript\nFintech Dashboard"]
@@ -50,3 +50,69 @@ flowchart LR
 
     UI <-->|"JWT Bearer Token"| Auth
     UI <-->|"Insights & Aggregates"| Gateway
+```
+```
+cd src
+dotnet restore
+dotnet run --project NextGen.Api
+```
+
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=localhost;Database=NextGenSaaS;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"
+}
+```
+
+# ✔ On first run, the API seeds:
+
+- Tenant
+- Users: admin/admin123, user/user123
+- Account + transactions
+
+
+#Swagger UI:
+
+- https://localhost:5001/swagger (or whatever port Kestrel shows)
+
+#2️⃣ Frontend (React + TypeScript + Vite + Tailwind)
+```
+npm install
+cp .env.example .env
+
+```
+
+Edit .env:
+```
+VITE_API_BASE=https://localhost:5001
+```
+
+Run dev:
+```
+npm run dev
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

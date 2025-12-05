@@ -1,6 +1,6 @@
  # NextGen SaaS Enterprise – Fullstack (.NET 8 + React/TS/Tailwind)
 
-NextGen SaaS Enterprise is a **portfolio-grade, fullstack SaaS platform** that simulates a modern
+NextGen SaaS Enterprise is a full-stack SaaS platform that simulates a modern
 multi-tenant financial / BI product.
 
 It’s designed to showcase how I build real-world systems end-to-end:
